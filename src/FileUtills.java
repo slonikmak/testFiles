@@ -2,13 +2,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -95,6 +94,19 @@ public class FileUtills {
         // size=245, creationTime=2016-12-16T13:35:54.44938Z, isSymbolicLink=false, isRegularFile=true,
         // fileKey=null, isOther=false, isDirectory=false
         System.out.println(Files.readAttributes(path, "*"));
+
+
+    }
+
+    public static void getFileAttributesTypes(){
+        FileSystem fileSystem = FileSystems.getDefault();
+        Set<String> fileSystemViews = fileSystem.supportedFileAttributeViews();
+
+        // We iterate over the available file attribute views
+        // of a file system
+        for (String fileSystemView : fileSystemViews) {
+            System.out.println(fileSystemView);
+        }
     }
 
     public static void main(String[] args) {
@@ -104,5 +116,6 @@ public class FileUtills {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        getFileAttributesTypes();
     }
 }
